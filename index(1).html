@@ -1,0 +1,3382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unblockly - Telegram Mini App Mockup</title>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #1C1C1E;
+    --card: #2C2C2E;
+    --card2: #3A3A3C;
+    --sep: #38383A;
+    --blue: #2AABEE;
+    --white: #FFFFFF;
+    --secondary: #8E8E93;
+    --green: #30D158;
+    --red: #FF453A;
+    --shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: "SF Pro Display", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    gap: 28px;
+    padding: 40px 28px;
+    overflow-x: auto;
+    align-items: flex-start;
+  }
+
+  body::-webkit-scrollbar,
+  .scroll-area::-webkit-scrollbar {
+    display: none;
+  }
+
+  .screen-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .screen-label {
+    color: var(--secondary);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .phone {
+    width: 390px;
+    height: 844px;
+    border-radius: 46px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 0 4px rgba(0, 0, 0, 0.16),
+      var(--shadow);
+  }
+
+  .phone-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .status-bar {
+    height: 50px;
+    padding: 14px 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .status-time {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--white);
+  }
+
+  .status-icons svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    fill: currentColor;
+  }
+
+  .nav-bar {
+    min-height: 56px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .nav-side {
+    min-width: 72px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--blue);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .nav-side.right {
+    justify-content: flex-end;
+    color: var(--white);
+  }
+
+  .nav-center {
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .nav-title {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .nav-sub {
+    margin-top: 3px;
+    color: var(--secondary);
+    font-size: 12px;
+  }
+
+  .nav-side svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    display: block;
+  }
+
+  .scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0 96px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .section-label {
+    padding: 18px 16px 10px;
+    color: var(--secondary);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .card,
+  .hero-card,
+  .device-card,
+  .plan-card,
+  .stat-card,
+  .note-card {
+    background: var(--card);
+    border-radius: 22px;
+    margin: 0 16px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card {
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-card {
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-card--main {
+    padding-top: 18px;
+  }
+
+  .hero-card--offline {
+    text-align: center;
+    padding-top: 22px;
+  }
+
+  .hero-glow,
+  .secondary-glow {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    pointer-events: none;
+    filter: blur(2px);
+  }
+
+  .hero-glow {
+    top: 18px;
+    width: 180px;
+    height: 90px;
+    background: radial-gradient(circle, rgba(42, 171, 238, 0.15) 0%, rgba(42, 171, 238, 0.04) 46%, transparent 72%);
+  }
+
+  .secondary-glow {
+    top: -10px;
+    width: 220px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(42, 171, 238, 0.15) 0%, transparent 72%);
+  }
+
+  .hero-lottie {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-status-row {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--green);
+    box-shadow: 0 0 0 rgba(48, 209, 88, 0.45);
+    animation: pulse 1.8s infinite;
+    flex-shrink: 0;
+  }
+
+  .status-dot.offline {
+    background: var(--red);
+    box-shadow: 0 0 0 rgba(255, 69, 58, 0.4);
+    animation: pulse-red 1.8s infinite;
+  }
+
+  .status-text {
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .status-text.offline {
+    color: var(--red);
+  }
+
+  .hero-metric {
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero-days {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+  }
+
+  .hero-meta {
+    padding-bottom: 9px;
+  }
+
+  .hero-days-label {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .hero-days-sub {
+    margin-top: 4px;
+    color: var(--secondary);
+    font-size: 13px;
+  }
+
+  .hero-plan {
+    margin-top: 14px;
+    color: var(--secondary);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .hero-bottom {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .server-badge,
+  .state-badge {
+    background: var(--card2);
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .server-badge svg,
+  .state-badge svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  .quick-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 16px 2px;
+  }
+
+  .qa-item {
+    width: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .qa-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+  }
+
+  .qa-button svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+    display: block;
+  }
+
+  .qa-label {
+    color: var(--secondary);
+    font-size: 11px;
+    line-height: 1.3;
+  }
+  .list-row {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .list-row + .list-row {
+    border-top: 1px solid var(--sep);
+  }
+
+  .list-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .list-icon.blue { background: rgba(42, 171, 238, 0.16); color: var(--blue); }
+  .list-icon.green { background: rgba(48, 209, 88, 0.16); color: var(--green); }
+  .list-icon.red { background: rgba(255, 69, 58, 0.16); color: var(--red); }
+  .list-icon.gray { background: rgba(255, 255, 255, 0.08); color: var(--white); }
+
+  .list-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    display: block;
+  }
+
+  .list-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .list-title {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .list-sub {
+    margin-top: 4px;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .list-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary);
+    font-size: 13px;
+  }
+
+  .list-value {
+    color: var(--secondary);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .chevron {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  .btn-row {
+    padding: 2px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-pill,
+  .btn-outline {
+    min-height: 54px;
+    border-radius: 16px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .btn-pill {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .btn-outline {
+    background: var(--card);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .btn-pill svg,
+  .btn-outline svg,
+  .mini-action svg,
+  .url-copy svg,
+  .payment-pill svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    display: block;
+  }
+
+  .note-card {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .note-copy {
+    flex: 1;
+  }
+
+  .note-title {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .note-sub {
+    margin-top: 6px;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .url-box {
+    margin: 0 16px 12px;
+    padding: 14px 14px 14px 16px;
+    border-radius: 18px;
+    background: var(--card2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .url-text {
+    flex: 1;
+    min-width: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--secondary);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .url-copy {
+    min-width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(42, 171, 238, 0.16);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .qr-card {
+    margin-top: 2px;
+  }
+
+  .qr-block {
+    padding: 18px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .qr-placeholder {
+    width: 156px;
+    height: 156px;
+    border-radius: 18px;
+    background: var(--white);
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .qr-grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+  }
+
+  .qr-cell {
+    background: #111111;
+    border-radius: 2px;
+  }
+
+  .qr-cell.white {
+    background: transparent;
+  }
+
+  .qr-caption {
+    text-align: center;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .device-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .device-card {
+    min-height: 188px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .device-title {
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .device-sub {
+    margin-top: 6px;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .mini-action {
+    margin-top: 12px;
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 0;
+    background: var(--card2);
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .helper-text {
+    padding: 4px 16px 0;
+    color: var(--secondary);
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .seg-control {
+    margin: 4px 16px 12px;
+    padding: 4px;
+    background: var(--card2);
+    border-radius: 16px;
+    display: flex;
+    gap: 4px;
+  }
+
+  .seg-item {
+    flex: 1;
+    min-height: 48px;
+    padding: 10px 12px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--secondary);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .seg-item.active {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--white);
+  }
+
+  .payment-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .plan-card {
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .plan-card.featured {
+    border-color: rgba(42, 171, 238, 0.3);
+    box-shadow: inset 0 0 0 1px rgba(42, 171, 238, 0.12);
+  }
+
+  .plan-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .plan-badge {
+    min-height: 28px;
+    padding: 0 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .plan-badge.free {
+    background: rgba(48, 209, 88, 0.14);
+    color: var(--green);
+  }
+
+  .plan-badge.featured-badge {
+    background: rgba(42, 171, 238, 0.14);
+    color: var(--blue);
+  }
+
+  .plan-name {
+    margin-top: 14px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .plan-desc {
+    margin-top: 6px;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .plan-price-row {
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .plan-price {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .plan-period {
+    color: var(--secondary);
+    font-size: 14px;
+    padding-bottom: 4px;
+  }
+
+  .plan-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .plan-btn {
+    flex: 1;
+    min-height: 48px;
+    border-radius: 14px;
+    border: 0;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .plan-btn.primary {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .plan-btn.secondary {
+    background: var(--card2);
+    color: var(--white);
+  }
+
+  .plan-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .stat-card {
+    flex: 1;
+    padding: 18px 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .stat-value {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+
+  .stat-value.green {
+    color: var(--green);
+  }
+
+  .stat-value.blue {
+    color: var(--blue);
+  }
+
+  .stat-label {
+    margin-top: 6px;
+    color: var(--secondary);
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .profile-hero {
+    padding: 12px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(42, 171, 238, 0.9) 0%, rgba(42, 171, 238, 0.55) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 800;
+    box-shadow: 0 12px 30px rgba(42, 171, 238, 0.22);
+  }
+
+  .avatar-name {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .avatar-handle {
+    color: var(--secondary);
+    font-size: 13px;
+  }
+
+  .sub-pill {
+    margin-top: 2px;
+    min-height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: rgba(48, 209, 88, 0.12);
+    color: var(--green);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .sub-pill svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .switch {
+    width: 46px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--green);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .switch::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--white);
+  }
+
+  .app-version {
+    padding: 20px 16px 8px;
+    color: var(--secondary);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .tab-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 80px;
+    padding: 8px 10px max(10px, env(safe-area-inset-bottom));
+    background: rgba(28, 28, 30, 0.98);
+    border-top: 1px solid var(--sep);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    backdrop-filter: blur(14px);
+  }
+
+  .tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--secondary);
+    padding-top: 2px;
+  }
+
+  .tab-pill {
+    min-width: 44px;
+    height: 32px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab-item.active .tab-pill {
+    background: rgba(42, 171, 238, 0.15);
+    color: var(--blue);
+  }
+
+  .tab-icon {
+    width: 21px;
+    height: 21px;
+    fill: currentColor;
+    display: block;
+  }
+
+  .tab-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: currentColor;
+  }
+
+  .tab-item.active {
+    color: var(--blue);
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(48, 209, 88, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0); }
+  }
+
+  @keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 58, 0.35); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 69, 58, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 58, 0); }
+  }
+
+  @media (max-width: 1600px) {
+    body {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  /* ── Onboarding ───────────────────────────── */
+  .onboard-wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .onboard-top-bar {
+    height: 50px;
+    padding: 14px 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+  .onboard-skip {
+    color: var(--secondary);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .onboard-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 0 0;
+    flex-shrink: 0;
+  }
+  .onboard-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--card2);
+    transition: all 0.3s;
+  }
+  .onboard-dot.active {
+    width: 22px;
+    background: var(--blue);
+  }
+  .onboard-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px 20px;
+    text-align: center;
+    gap: 0;
+  }
+  .onboard-lottie {
+    margin-bottom: 20px;
+  }
+  .onboard-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .onboard-sub {
+    font-size: 15px;
+    color: var(--secondary);
+    line-height: 1.55;
+  }
+  .onboard-footer {
+    padding: 0 16px 36px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-primary {
+    width: 100%;
+    min-height: 56px;
+    border-radius: 18px;
+    border: 0;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+  }
+  .btn-primary svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+  .btn-secondary {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 16px;
+    border: 0;
+    background: var(--card);
+    color: var(--secondary);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .onboard-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    margin-top: 28px;
+  }
+  .onboard-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+  }
+  .onboard-feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .onboard-feature-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+  .onboard-feature-title {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .onboard-feature-sub {
+    font-size: 13px;
+    color: var(--secondary);
+    margin-top: 2px;
+  }
+
+  /* ── Pending (creating access) ────────────── */
+  .pending-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 0;
+    text-align: center;
+  }
+  .pending-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-top: 6px;
+  }
+  .pending-sub {
+    font-size: 14px;
+    color: var(--secondary);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .progress-track {
+    margin: 22px 16px 0;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--card2);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue) 0%, #5AC8FA 100%);
+    animation: prog 3s ease-in-out forwards;
+  }
+  @keyframes prog {
+    0%   { width: 4%; }
+    40%  { width: 60%; }
+    80%  { width: 78%; }
+    100% { width: 78%; }
+  }
+  .step-list {
+    margin: 20px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--card);
+    border-radius: 0;
+  }
+  .step-item:first-child { border-radius: 16px 16px 0 0; }
+  .step-item:last-child  { border-radius: 0 0 16px 16px; }
+  .step-item + .step-item { border-top: 1px solid var(--sep); }
+  .step-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-icon.done     { background: rgba(48, 209, 88, 0.15); color: var(--green); }
+  .step-icon.spinning { background: rgba(42, 171, 238, 0.15); color: var(--blue); }
+  .step-icon.waiting  { background: var(--card2); color: var(--secondary); }
+  .step-icon svg { width: 15px; height: 15px; fill: currentColor; }
+  .step-icon.spinning svg { animation: spin 1.2s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .step-text { flex: 1; }
+  .step-title { font-size: 15px; font-weight: 500; }
+  .step-title.done    { color: var(--green); }
+  .step-title.active  { color: var(--white); }
+  .step-title.waiting { color: var(--secondary); }
+  .step-sub { font-size: 12px; color: var(--secondary); margin-top: 2px; }
+
+  /* ── Offline / No subscription ────────────── */
+  .offline-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px 80px;
+    text-align: center;
+  }
+  .offline-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255, 69, 58, 0.12);
+    border: 1px solid rgba(255, 69, 58, 0.2);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .offline-label svg { width: 13px; height: 13px; fill: currentColor; }
+  .offline-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .offline-sub {
+    font-size: 15px;
+    color: var(--secondary);
+    line-height: 1.55;
+    margin-bottom: 32px;
+  }
+  .offline-cta {
+    width: 100%;
+    min-height: 56px;
+    border-radius: 18px;
+    border: 0;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .offline-cta svg { width: 20px; height: 20px; fill: currentColor; }
+  .offline-cta-sec {
+    font-size: 14px;
+    color: var(--secondary);
+    cursor: pointer;
+  }
+  .offline-cta-sec span { color: var(--blue); font-weight: 500; }
+
+  /* ── Payment screen (7) ───────────────────── */
+  .pay-order-card {
+    background: var(--card);
+    border-radius: 22px;
+    margin: 0 16px 12px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .pay-plan-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--sep);
+  }
+  .pay-plan-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: rgba(42,171,238,0.14);
+    color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .pay-plan-icon svg { width: 24px; height: 24px; fill: currentColor; }
+  .pay-plan-name { font-size: 17px; font-weight: 600; }
+  .pay-plan-sub  { font-size: 13px; color: var(--secondary); margin-top: 3px; }
+  .pay-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .pay-line .lbl  { color: var(--secondary); }
+  .pay-line .val  { font-weight: 500; }
+  .pay-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 700;
+    padding-top: 14px;
+    border-top: 1px solid var(--sep);
+    margin-top: 4px;
+  }
+  .pay-method-card {
+    background: var(--card);
+    border-radius: 22px;
+    margin: 0 16px 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .pay-method-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+  }
+  .pay-method-row + .pay-method-row { border-top: 1px solid var(--sep); }
+  .pay-method-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .pay-method-icon svg { width: 20px; height: 20px; fill: currentColor; }
+  .pay-method-text { flex: 1; }
+  .pay-method-name { font-size: 15px; font-weight: 500; }
+  .pay-method-sub  { font-size: 13px; color: var(--secondary); margin-top: 2px; }
+  .radio-outer {
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    border: 2px solid var(--card2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .radio-outer.selected { border-color: var(--blue); }
+  .radio-inner {
+    width: 11px; height: 11px;
+    border-radius: 999px;
+    background: var(--blue);
+  }
+  .pay-footer {
+    padding: 8px 16px 20px;
+  }
+  .pay-note {
+    font-size: 12px;
+    color: var(--secondary);
+    text-align: center;
+    padding: 0 8px 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Success screen (8) ───────────────────── */
+  .success-wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 24px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .success-glow {
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(48,209,88,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .success-body { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .success-check {
+    width: 96px; height: 96px;
+    border-radius: 999px;
+    background: rgba(48,209,88,0.14);
+    border: 2px solid rgba(48,209,88,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  .success-check svg { width: 44px; height: 44px; fill: var(--green); }
+  .success-title { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 12px; }
+  .success-sub   { font-size: 15px; color: var(--secondary); line-height: 1.55; }
+  .success-detail-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 18px;
+    width: 100%;
+    margin-top: 28px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .success-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 6px 0;
+  }
+  .success-row .lbl { color: var(--secondary); }
+  .success-row .val { font-weight: 600; }
+  .success-footer { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+
+  /* ── Instructions screen (11) ─────────────── */
+  .inst-tabs {
+    display: flex;
+    gap: 0;
+    margin: 4px 16px 14px;
+    background: var(--card2);
+    border-radius: 12px;
+    padding: 3px;
+  }
+  .inst-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--secondary);
+    cursor: pointer;
+  }
+  .inst-tab.active { background: var(--card); color: var(--white); font-weight: 600; }
+  .inst-step-list { margin: 0 16px; display: flex; flex-direction: column; gap: 2px; }
+  .inst-step {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    background: var(--card);
+    align-items: flex-start;
+  }
+  .inst-step:first-child { border-radius: 16px 16px 0 0; }
+  .inst-step:last-child  { border-radius: 0 0 16px 16px; }
+  .inst-step + .inst-step { border-top: 1px solid var(--sep); }
+  .inst-num {
+    width: 28px; height: 28px;
+    border-radius: 999px;
+    background: rgba(42,171,238,0.14);
+    color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .inst-step-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .inst-step-sub   { font-size: 13px; color: var(--secondary); line-height: 1.45; }
+  .inst-app-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    background: var(--card2);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    cursor: pointer;
+    border: none;
+  }
+  .inst-app-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* ── Payment history (12) ─────────────────── */
+  .tx-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+  }
+  .tx-item + .tx-item { border-top: 1px solid var(--sep); }
+  .tx-icon {
+    width: 42px; height: 42px;
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .tx-icon svg { width: 20px; height: 20px; fill: currentColor; }
+  .tx-text { flex: 1; min-width: 0; }
+  .tx-title { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tx-date  { font-size: 12px; color: var(--secondary); margin-top: 3px; }
+  .tx-right { text-align: right; flex-shrink: 0; }
+  .tx-amount { font-size: 15px; font-weight: 600; }
+  .tx-amount.green  { color: var(--green); }
+  .tx-status { font-size: 12px; color: var(--secondary); margin-top: 3px; }
+
+  /* ── Server picker (13) ───────────────────── */
+  .server-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+  }
+  .server-item + .server-item { border-top: 1px solid var(--sep); }
+  .server-flag {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--card2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .server-text { flex: 1; }
+  .server-name  { font-size: 15px; font-weight: 500; }
+  .server-meta  { font-size: 12px; color: var(--secondary); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
+  .ping-dot { width: 6px; height: 6px; border-radius: 999px; flex-shrink: 0; }
+  .ping-dot.green  { background: var(--green); }
+  .ping-dot.yellow { background: #FFD60A; }
+  .ping-dot.red    { background: var(--red); }
+  .server-ping  { font-size: 12px; font-weight: 600; }
+  .server-ping.green  { color: var(--green); }
+  .server-ping.yellow { color: #FFD60A; }
+  .server-right { display: flex; align-items: center; gap: 10px; }
+
+  /* ── Support screen (14) ──────────────────── */
+  .support-hero {
+    margin: 8px 16px 14px;
+    background: var(--card);
+    border-radius: 22px;
+    padding: 22px 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .support-hero-title { font-size: 18px; font-weight: 700; margin-top: 10px; margin-bottom: 6px; }
+  .support-hero-sub   { font-size: 13px; color: var(--secondary); line-height: 1.5; }
+  .faq-item {
+    padding: 14px 16px;
+    cursor: pointer;
+  }
+  .faq-item + .faq-item { border-top: 1px solid var(--sep); }
+  .faq-q { font-size: 15px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q svg { width: 18px; height: 18px; fill: var(--secondary); flex-shrink: 0; }
+  .faq-a { font-size: 13px; color: var(--secondary); margin-top: 8px; line-height: 1.55; }
+
+  /* ── Bottom sheet (15) ────────────────────── */
+  .sheet-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .sheet-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(3px);
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+  }
+  .sheet-panel {
+    width: 100%;
+    background: var(--card);
+    border-radius: 22px 22px 0 0;
+    padding: 12px 20px 36px;
+  }
+  .sheet-handle {
+    width: 36px; height: 4px;
+    background: var(--card2);
+    border-radius: 999px;
+    margin: 0 auto 20px;
+  }
+  .sheet-title { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .sheet-sub   { font-size: 14px; color: var(--secondary); line-height: 1.5; margin-bottom: 22px; }
+  .sheet-btn-primary {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 16px;
+    border: 0;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .sheet-btn-secondary {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 16px;
+    border: 0;
+    background: var(--card2);
+    color: var(--secondary);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .sheet-expiry-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,214,10,0.12);
+    border: 1px solid rgba(255,214,10,0.25);
+    color: #FFD60A;
+    font-size: 13px; font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .sheet-expiry-badge svg { width: 14px; height: 14px; fill: currentColor; }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="i-signal" viewBox="0 0 24 24">
+    <path d="M4 18h2v2H4v-2Zm4-3h2v5H8v-5Zm4-4h2v9h-2v-9Zm4-3h2v12h-2V8Z"/>
+  </symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24">
+    <path d="M12 18.2 15.2 15a4.54 4.54 0 0 0-6.4 0l3.2 3.2Zm0-4.2 5.4-5.4a8.3 8.3 0 0 0-10.8 0L12 14Zm0-4.2 7.8-7.8a12.66 12.66 0 0 0-15.6 0L12 9.8Z"/>
+  </symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24">
+    <path d="M17 7h1.5A1.5 1.5 0 0 1 20 8.5v7A1.5 1.5 0 0 1 18.5 17H17v1h-2v-1H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h9V6h2v1Zm-1 2H6v6h10V9Z"/>
+  </symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24">
+    <path d="M14.7 5.3 8 12l6.7 6.7-1.4 1.4L5.2 12l8.1-8.1 1.4 1.4Z"/>
+  </symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24">
+    <path d="M5 12a2 2 0 1 0 .001-4.001A2 2 0 0 0 5 12Zm7 0a2 2 0 1 0 .001-4.001A2 2 0 0 0 12 12Zm7 0a2 2 0 1 0 .001-4.001A2 2 0 0 0 19 12Z"/>
+  </symbol>
+  <symbol id="i-home" viewBox="0 0 24 24">
+    <path d="M12 4 4 10.2V20h6v-5h4v5h6v-9.8L12 4Z"/>
+  </symbol>
+  <symbol id="i-key" viewBox="0 0 24 24">
+    <path d="M7.5 14a5.5 5.5 0 1 1 4.85-8.09A5.5 5.5 0 0 1 7.5 14Zm0-2a3.5 3.5 0 1 0-.001-7.001A3.5 3.5 0 0 0 7.5 12Zm7.5-.5h6V14h-2v2h-2v-2h-2v-2.5Z"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 24 24">
+    <path d="m12 3.5 2.63 5.33 5.88.85-4.25 4.15 1 5.87L12 16.93 6.74 19.7l1-5.87L3.5 9.68l5.87-.85L12 3.5Z"/>
+  </symbol>
+  <symbol id="i-users" viewBox="0 0 24 24">
+    <path d="M9 11a4 4 0 1 1 .001-8.001A4 4 0 0 1 9 11Zm8 1a3 3 0 1 1 .001-6.001A3 3 0 0 1 17 12ZM3 20c0-3.3 2.69-6 6-6s6 2.7 6 6H3Zm12 0c0-2.36 1.5-4.38 3.6-5.13A5.98 5.98 0 0 1 21 20h-6Z"/>
+  </symbol>
+  <symbol id="i-user" viewBox="0 0 24 24">
+    <path d="M12 12a4.5 4.5 0 1 1 .001-9.001A4.5 4.5 0 0 1 12 12Zm0 2c4.41 0 8 2.46 8 5.5V21H4v-1.5C4 16.46 7.59 14 12 14Z"/>
+  </symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24">
+    <path d="M12 3 5 6v5c0 5.17 2.84 9.66 7 11 4.16-1.34 7-5.83 7-11V6l-7-3Zm-1 12.59-2.3-2.29 1.41-1.42L11 12.77l3.89-3.89 1.41 1.42L11 15.59Z"/>
+  </symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24">
+    <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4V1L7 6l5 5V7a5 5 0 1 1-4.9 6.04H5.02A7 7 0 1 0 17.65 6.35Z"/>
+  </symbol>
+  <symbol id="i-lifebuoy" viewBox="0 0 24 24">
+    <path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm5.66 4.34a7.99 7.99 0 0 1 1.82 4.39l-2.42.4a5.54 5.54 0 0 0-1.12-2.7l1.72-2.09ZM12 6.5A5.5 5.5 0 1 1 6.5 12 5.51 5.51 0 0 1 12 6.5Zm-5.66-.16 1.72 2.09a5.54 5.54 0 0 0-1.12 2.7l-2.42-.4a7.99 7.99 0 0 1 1.82-4.39Zm-.16 11.32a7.99 7.99 0 0 1-1.66-4.16l2.42-.4a5.54 5.54 0 0 0 1.03 2.53l-1.79 2.03Zm11.48 0-1.79-2.03a5.54 5.54 0 0 0 1.03-2.53l2.42.4a7.99 7.99 0 0 1-1.66 4.16Z"/>
+  </symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <path d="M8 8V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Zm2-3v3h3a2 2 0 0 1 2 2v3h3V5h-8Zm3 13v-8H5v8h8Z"/>
+  </symbol>
+  <symbol id="i-location" viewBox="0 0 24 24">
+    <path d="M12 21s7-6.16 7-12a7 7 0 1 0-14 0c0 5.84 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+  </symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24">
+    <path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 3v14h8V5H8Zm3 12h2v1h-2v-1Z"/>
+  </symbol>
+  <symbol id="i-desktop" viewBox="0 0 24 24">
+    <path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-6v2h3v2H7v-2h3v-2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v10h16V6H4Z"/>
+  </symbol>
+  <symbol id="i-external" viewBox="0 0 24 24">
+    <path d="M14 3h7v7h-2V6.41l-8.29 8.3-1.42-1.42 8.3-8.29H14V3ZM5 5h6v2H7v10h10v-4h2v6H5V5Z"/>
+  </symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24">
+    <path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm-1.1 14.3-4-4 1.4-1.4 2.6 2.6 4.8-4.8 1.4 1.4-6.2 6.2Z"/>
+  </symbol>
+  <symbol id="i-share" viewBox="0 0 24 24">
+    <path d="M18 16a2.99 2.99 0 0 0-2.24 1.02L8.91 13.7a3.1 3.1 0 0 0 0-3.4l6.85-3.32a3 3 0 1 0-.87-1.8L8.04 8.5a3 3 0 1 0 0 7l6.85 3.32A3 3 0 1 0 18 16Z"/>
+  </symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24">
+    <path d="M20 7h-2.18A3 3 0 0 0 12 4.9 3 3 0 0 0 6.18 7H4a2 2 0 0 0-2 2v3h2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8h2V9a2 2 0 0 0-2-2ZM9 6a1 1 0 1 1 0 2H7.82A1.99 1.99 0 0 1 9 6Zm4 0a1 1 0 1 1 1.18 2H13a1 1 0 0 1 0-2ZM4 10V9h7v1H4Zm2 2h5v8H6v-8Zm7 8v-8h5v8h-5Zm7-10h-7V9h7v1Z"/>
+  </symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24">
+    <path d="M5 6h13a3 3 0 0 1 3 3v1h-3a3 3 0 0 0 0 6h3v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3Zm13 6a1 1 0 1 0 0 2h4v-2h-4ZM5 4h11v2H5a1 1 0 0 0 0 2H3a3 3 0 0 1 2-4Z"/>
+  </symbol>
+  <symbol id="i-book" viewBox="0 0 24 24">
+    <path d="M5 4h12a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.8.4L15 18H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v10h10.6l1.4.94V6H5Z"/>
+  </symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24">
+    <path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-4v-1l-1.5-1.5V11a5.5 5.5 0 0 0-4.5-5.41V5a1 1 0 1 0-2 0v.59A5.5 5.5 0 0 0 6.5 11v4.5L5 17v1h14Z"/>
+  </symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24">
+    <path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm6.92 9h-3.1a15.5 15.5 0 0 0-1.24-5 8.03 8.03 0 0 1 4.34 5ZM12 4a13.2 13.2 0 0 1 1.82 7h-3.64A13.2 13.2 0 0 1 12 4ZM9.42 6a15.5 15.5 0 0 0-1.24 5h-3.1a8.03 8.03 0 0 1 4.34-5ZM5.08 13h3.1a15.5 15.5 0 0 0 1.24 5 8.03 8.03 0 0 1-4.34-5ZM12 20a13.2 13.2 0 0 1-1.82-7h3.64A13.2 13.2 0 0 1 12 20Zm2.58-2a15.5 15.5 0 0 0 1.24-5h3.1a8.03 8.03 0 0 1-4.34 5Z"/>
+  </symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24">
+    <path d="M6 3h12v18l-2.5-1.5L13 21l-2.5-1.5L8 21l-2-1.2V3Zm2 4v2h8V7H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z"/>
+  </symbol>
+</svg>
+<div class="screen-wrap">
+  <div class="screen-label">1 · Главная</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side">
+          <svg><use href="#i-chevron-left"></use></svg>
+          <span>Закрыть</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Unblockly</div>
+          <div class="nav-sub">Telegram Mini App</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+      <div class="scroll-area">
+        <div class="hero-card hero-card--main">
+          <div class="hero-glow"></div>
+          <div class="hero-lottie">
+            <lottie-player src="./animations/dizzy_telegram.json" background="transparent" speed="1" style="width:120px; height:120px; margin:0 auto;" loop autoplay></lottie-player>
+          </div>
+          <div class="hero-status-row">
+            <div class="status-dot"></div>
+            <span class="status-text">Подключено</span>
+          </div>
+          <div class="hero-metric">
+            <div class="hero-days">72</div>
+            <div class="hero-meta">
+              <div class="hero-days-label">дня</div>
+              <div class="hero-days-sub">до продления</div>
+            </div>
+          </div>
+          <div class="hero-plan">План Wallet Plus · действует до 26 июня 2026</div>
+          <div class="hero-bottom">
+            <div class="server-badge">
+              <svg><use href="#i-location"></use></svg>
+              <span>Германия, Франкфурт · 24 ms</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <div class="qa-item">
+            <div class="qa-button"><svg><use href="#i-shield"></use></svg></div>
+            <div class="qa-label">Подключить</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-button"><svg><use href="#i-refresh"></use></svg></div>
+            <div class="qa-label">Переиздать</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-button"><svg><use href="#i-wallet"></use></svg></div>
+            <div class="qa-label">Продлить</div>
+          </div>
+          <div class="qa-item">
+            <div class="qa-button"><svg><use href="#i-lifebuoy"></use></svg></div>
+            <div class="qa-label">Помощь</div>
+          </div>
+        </div>
+
+        <div class="section-label">Подсказка</div>
+        <div class="note-card">
+          <lottie-player src="./animations/Idea.json" background="transparent" speed="1" style="width:56px; height:56px; margin:0;" loop autoplay></lottie-player>
+          <div class="note-copy">
+            <div class="note-title">Первый запуск за 30 секунд</div>
+            <div class="note-sub">Откройте доступ, импортируйте ссылку в Hiddify и включите автообновление конфигурации.</div>
+          </div>
+        </div>
+
+        <div class="section-label">Мой доступ</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-key"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Доступ активен</div>
+              <div class="list-sub">vless://unblockly-main-de1...</div>
+            </div>
+            <div class="url-copy" title="Копировать"><svg><use href="#i-copy"></use></svg></div>
+          </div>
+        </div>
+
+        <div class="section-label">Сервер</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon green"><svg><use href="#i-location"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Германия, Франкфурт</div>
+              <div class="list-sub">Активен · VLESS Reality · стабильный маршрут</div>
+            </div>
+            <div class="list-right">
+              <span class="list-value">24 ms</span>
+              <svg class="chevron" style="transform:rotate(180deg)"><use href="#i-chevron-left"></use></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Рефералы</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-users"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Пригласите друга</div>
+              <div class="list-sub">Получайте по 3 дня за каждого активированного пользователя</div>
+            </div>
+            <svg class="chevron" style="transform:rotate(180deg); color:var(--secondary)"><use href="#i-chevron-left"></use></svg>
+          </div>
+        </div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-wrap">
+  <div class="screen-label">2 · Доступ</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side">
+          <svg><use href="#i-chevron-left"></use></svg>
+          <span>Назад</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Мой доступ</div>
+          <div class="nav-sub">Конфигурация и подключение</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+      <div class="scroll-area">
+        <div class="hero-card hero-card--offline">
+          <div class="secondary-glow"></div>
+          <lottie-player src="./animations/No_Entry.json" background="transparent" speed="1" style="width:80px; height:80px; margin:0 auto;" loop autoplay></lottie-player>
+          <div class="hero-status-row" style="margin-top:12px;">
+            <div class="status-dot offline"></div>
+            <span class="status-text offline">Отключено</span>
+          </div>
+          <div class="note-title" style="margin-top:14px;">Если VPN не поднялся</div>
+          <div class="note-sub" style="margin-top:8px; text-align:center;">Переиздайте конфигурацию и откройте её в Hiddify. Последняя ссылка уже готова для импорта.</div>
+          <div style="margin-top:16px;">
+            <div class="state-badge">
+              <svg><use href="#i-refresh"></use></svg>
+              <span>Последнее обновление 2 минуты назад</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card qr-card">
+          <div class="qr-block">
+            <div class="qr-placeholder">
+              <div class="qr-grid">
+                <script>
+                  const pattern = [1,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,1,1,0,0,1,0,1,0,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1];
+                  document.write(pattern.map(value => `<div class="qr-cell${value ? "" : " white"}"></div>`).join(""));
+                </script>
+              </div>
+            </div>
+            <div class="qr-caption">Сканируйте код в Hiddify или скопируйте конфигурацию ниже для ручного импорта.</div>
+          </div>
+        </div>
+
+        <div class="url-box">
+          <div class="url-text">vless://unblockly-de1-2026@de-1.unblockly.io:443?type=ws&amp;security=tls...</div>
+          <button class="url-copy" title="Копировать"><svg><use href="#i-copy"></use></svg></button>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-pill"><svg><use href="#i-external"></use></svg><span>Открыть в Hiddify</span></button>
+          <button class="btn-outline"><svg><use href="#i-refresh"></use></svg><span>Переиздать доступ</span></button>
+        </div>
+
+        <div class="section-label">Инструкции</div>
+        <div class="device-grid">
+          <div class="device-card">
+            <lottie-player src="./animations/iPhone.json" background="transparent" speed="1" style="width:84px; height:84px; margin:0 auto;" loop autoplay></lottie-player>
+            <div class="device-title">iPhone</div>
+            <div class="device-sub">Откройте ссылку в Hiddify и разрешите импорт профиля.</div>
+            <button class="mini-action"><svg><use href="#i-phone"></use></svg><span>Шаги для iOS</span></button>
+          </div>
+          <div class="device-card">
+            <lottie-player src="./animations/Laptop.json" background="transparent" speed="1" style="width:84px; height:84px; margin:0 auto;" loop autoplay></lottie-player>
+            <div class="device-title">Ноутбук</div>
+            <div class="device-sub">Используйте Hiddify Desktop или любой VLESS-клиент с Reality.</div>
+            <button class="mini-action"><svg><use href="#i-desktop"></use></svg><span>Шаги для macOS</span></button>
+          </div>
+        </div>
+
+        <div class="helper-text">Конфигурация активна до <span style="color:var(--white); font-weight:600;">26 июня 2026</span>. После продления ссылка обновится автоматически.</div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="screen-wrap">
+  <div class="screen-label">3 · Тарифы</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side">
+          <svg><use href="#i-chevron-left"></use></svg>
+          <span>Назад</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Тарифы</div>
+          <div class="nav-sub">Продление и оплата</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+      <div class="scroll-area">
+        <div class="hero-card" style="text-align:center; padding-top:18px;">
+          <div class="secondary-glow"></div>
+          <lottie-player src="./animations/Star_Animation.json" background="transparent" speed="1" style="width:100px; height:100px; margin:0 auto;" loop autoplay></lottie-player>
+          <div class="note-title" style="margin-top:6px;">Премиум-доступ без перегруза</div>
+          <div class="note-sub" style="margin-top:8px; text-align:center;">Единый трафик, быстрые европейские ноды и бесшовное продление прямо из Mini App.</div>
+        </div>
+
+        <div class="section-label">Способ оплаты</div>
+        <div class="seg-control">
+          <div class="seg-item active">
+            <span class="payment-pill"><svg><use href="#i-star"></use></svg><span>Telegram Stars</span></span>
+          </div>
+          <div class="seg-item">
+            <span class="payment-pill"><svg><use href="#i-wallet"></use></svg><span>TON / USDT</span></span>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-top">
+            <div class="plan-badge free">Пробный период</div>
+          </div>
+          <div class="plan-name">Старт</div>
+          <div class="plan-desc">Три дня для проверки скорости и стабильности на всех основных устройствах.</div>
+          <div class="plan-price-row">
+            <div class="plan-price">0 ₽</div>
+          </div>
+          <div class="plan-period">Однократно для нового пользователя</div>
+          <div class="plan-actions">
+            <button class="plan-btn primary"><svg><use href="#i-check-circle"></use></svg><span>Активировать</span></button>
+          </div>
+        </div>
+
+        <div class="plan-card featured">
+          <div class="plan-top">
+            <div class="plan-badge featured-badge">Популярный</div>
+          </div>
+          <div class="plan-name">Месячный</div>
+          <div class="plan-desc">Оптимальный баланс цены, скорости и автоматического обновления конфигурации.</div>
+          <div class="plan-price-row">
+            <div class="plan-price">299 ₽</div>
+            <div class="plan-period">за 30 дней</div>
+          </div>
+          <div class="plan-actions">
+            <button class="plan-btn primary"><svg><use href="#i-star"></use></svg><span>150 Stars</span></button>
+            <button class="plan-btn secondary"><svg><use href="#i-wallet"></use></svg><span>4 USDT</span></button>
+          </div>
+        </div>
+
+        <div class="section-label">Что входит</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon green"><svg><use href="#i-check-circle"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Неограниченный трафик</div>
+              <div class="list-sub">Подходит для стриминга, звонков и ежедневной работы.</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="list-icon green"><svg><use href="#i-check-circle"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Ноды в нескольких странах</div>
+              <div class="list-sub">Германия, Нидерланды, Польша и резервные маршруты.</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="list-icon green"><svg><use href="#i-check-circle"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">VLESS + Reality</div>
+              <div class="list-sub">Быстрый протокол с устойчивым подключением в сложных сетях.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-wrap">
+  <div class="screen-label">4 · Рефералы</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side">
+          <svg><use href="#i-chevron-left"></use></svg>
+          <span>Назад</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Рефералы</div>
+          <div class="nav-sub">Бонусы за приглашения</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+      <div class="scroll-area">
+        <div class="hero-card" style="text-align:center; padding-top:18px;">
+          <div class="secondary-glow"></div>
+          <lottie-player src="./animations/Money.json" background="transparent" speed="1" style="width:100px; height:100px; margin:0 auto;" loop autoplay></lottie-player>
+          <div class="note-title" style="margin-top:6px;">Делитесь доступом и копите дни</div>
+          <div class="note-sub" style="margin-top:8px; text-align:center;">Каждый приглашённый пользователь приносит вам ещё 3 дня активного доступа.</div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Приглашено</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value green">+9</div>
+            <div class="stat-label">Бонус дней</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value blue">9</div>
+            <div class="stat-label">Уже использовано</div>
+          </div>
+        </div>
+
+        <div class="section-label">Ваша ссылка</div>
+        <div class="url-box">
+          <div class="url-text">https://t.me/unblockly_bot?start=ref_9ad42</div>
+          <button class="url-copy" title="Копировать"><svg><use href="#i-copy"></use></svg></button>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-pill"><svg><use href="#i-share"></use></svg><span>Поделиться в Telegram</span></button>
+        </div>
+
+        <div class="section-label">Как это работает</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-share"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Отправьте ссылку другу</div>
+              <div class="list-sub">Поделитесь приглашением в Telegram или любой другой переписке.</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="list-icon gray"><svg><use href="#i-user"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Друг активирует пробный доступ</div>
+              <div class="list-sub">После старта Mini App система привязывает бонус к вашему аккаунту.</div>
+            </div>
+          </div>
+          <div class="list-row">
+            <div class="list-icon green"><svg><use href="#i-gift"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Вы получаете +3 дня</div>
+              <div class="list-sub">Бонус начисляется автоматически и сразу попадает в общий баланс дней.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-wrap">
+  <div class="screen-label">5 · Профиль</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side">
+          <svg><use href="#i-chevron-left"></use></svg>
+          <span>Назад</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Профиль</div>
+          <div class="nav-sub">Аккаунт Unblockly</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+      <div class="scroll-area">
+        <div class="profile-hero">
+          <div class="avatar">A</div>
+          <div class="avatar-name">Alex</div>
+          <div class="avatar-handle">@w1y_n0t</div>
+          <div class="sub-pill">
+            <svg><use href="#i-check-circle"></use></svg>
+            <span>Подписка активна · 72 дня</span>
+          </div>
+        </div>
+
+        <div class="section-label">Подписка</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-star"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">План Wallet Plus</div>
+              <div class="list-sub">Следующее списание 26 июня 2026</div>
+            </div>
+            <button class="mini-action" style="margin-top:0;"><svg><use href="#i-wallet"></use></svg><span>Продлить</span></button>
+          </div>
+        </div>
+
+        <div class="section-label">Меню</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-key"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Мой VPN доступ</div>
+              <div class="list-sub">Последняя активная конфигурация сохранена</div>
+            </div>
+            <svg class="chevron" style="transform:rotate(180deg); color:var(--secondary)"><use href="#i-chevron-left"></use></svg>
+          </div>
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-users"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Реферальная программа</div>
+              <div class="list-sub">Приглашено 3 пользователя</div>
+            </div>
+            <svg class="chevron" style="transform:rotate(180deg); color:var(--secondary)"><use href="#i-chevron-left"></use></svg>
+          </div>
+          <div class="list-row">
+            <div class="list-icon gray"><svg><use href="#i-receipt"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">История платежей</div>
+              <div class="list-sub">Stars, крипто и автоматические продления</div>
+            </div>
+            <svg class="chevron" style="transform:rotate(180deg); color:var(--secondary)"><use href="#i-chevron-left"></use></svg>
+          </div>
+          <div class="list-row">
+            <div class="list-icon blue"><svg><use href="#i-lifebuoy"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Поддержка</div>
+              <div class="list-sub">Ответы на вопросы и диагностика соединения</div>
+            </div>
+            <svg class="chevron" style="transform:rotate(180deg); color:var(--secondary)"><use href="#i-chevron-left"></use></svg>
+          </div>
+          <div class="list-row">
+            <div class="list-icon green"><svg><use href="#i-book"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Инструкции</div>
+              <div class="list-sub">Платформы, клиенты и рекомендации по настройке</div>
+            </div>
+            <svg class="chevron" style="transform:rotate(180deg); color:var(--secondary)"><use href="#i-chevron-left"></use></svg>
+          </div>
+        </div>
+
+        <div class="section-label">Аккаунт</div>
+        <div class="card">
+          <div class="list-row">
+            <div class="list-icon red"><svg><use href="#i-bell"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Уведомления</div>
+              <div class="list-sub">Напоминания о продлении и системных изменениях</div>
+            </div>
+            <div class="switch"></div>
+          </div>
+          <div class="list-row">
+            <div class="list-icon gray"><svg><use href="#i-globe"></use></svg></div>
+            <div class="list-text">
+              <div class="list-title">Язык</div>
+              <div class="list-sub">Русский интерфейс и локализованные подсказки</div>
+            </div>
+            <div class="list-right">
+              <span class="list-value">Русский</span>
+              <svg class="chevron" style="transform:rotate(180deg)"><use href="#i-chevron-left"></use></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-version">Unblockly v1.0.0 · Telegram Mini App</div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 6 — ONBOARDING (слайд 1 / 3)
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">6a · Онбординг — Слайд 1</div>
+  <div class="phone">
+    <div class="onboard-wrap">
+      <div class="onboard-top-bar">
+        <span class="onboard-skip">Пропустить</span>
+      </div>
+      <div class="onboard-dots">
+        <div class="onboard-dot active"></div>
+        <div class="onboard-dot"></div>
+        <div class="onboard-dot"></div>
+      </div>
+      <div class="onboard-body">
+        <div class="onboard-lottie">
+          <lottie-player
+            src="./animations/Idea.json"
+            background="transparent"
+            speed="1"
+            style="width:180px; height:180px;"
+            loop autoplay>
+          </lottie-player>
+        </div>
+        <div class="onboard-title">Интернет без&nbsp;границ</div>
+        <div class="onboard-sub">
+          Unblockly — это быстрый VPN прямо в&nbsp;Telegram.
+          Никаких приложений, никаких лишних настроек.
+        </div>
+        <div class="onboard-feature-list">
+          <div class="onboard-feature">
+            <div class="onboard-feature-icon" style="background:rgba(42,171,238,0.14); color:var(--blue);">
+              <svg viewBox="0 0 24 24"><use href="#i-shield"></use></svg>
+            </div>
+            <div>
+              <div class="onboard-feature-title">Протокол VLESS + Reality</div>
+              <div class="onboard-feature-sub">Не определяется блокировками</div>
+            </div>
+          </div>
+          <div class="onboard-feature">
+            <div class="onboard-feature-icon" style="background:rgba(48,209,88,0.14); color:var(--green);">
+              <svg viewBox="0 0 24 24"><use href="#i-check-circle"></use></svg>
+            </div>
+            <div>
+              <div class="onboard-feature-title">Работает в России</div>
+              <div class="onboard-feature-sub">Серверы в Германии, Нидерландах, Финляндии</div>
+            </div>
+          </div>
+          <div class="onboard-feature">
+            <div class="onboard-feature-icon" style="background:rgba(255,214,10,0.14); color:#FFD60A;">
+              <svg viewBox="0 0 24 24"><use href="#i-star"></use></svg>
+            </div>
+            <div>
+              <div class="onboard-feature-title">Оплата Telegram Stars</div>
+              <div class="onboard-feature-sub">Или криптой — TON и USDT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="onboard-footer">
+        <button class="btn-primary">
+          Далее
+          <svg viewBox="0 0 24 24" style="transform:rotate(180deg)"><use href="#i-chevron-left"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 6b — ONBOARDING (слайд 2 / 3)
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">6b · Онбординг — Слайд 2</div>
+  <div class="phone">
+    <div class="onboard-wrap">
+      <div class="onboard-top-bar">
+        <span class="onboard-skip">Пропустить</span>
+      </div>
+      <div class="onboard-dots">
+        <div class="onboard-dot"></div>
+        <div class="onboard-dot active"></div>
+        <div class="onboard-dot"></div>
+      </div>
+      <div class="onboard-body">
+        <div class="onboard-lottie">
+          <lottie-player
+            src="./animations/iPhone.json"
+            background="transparent"
+            speed="1"
+            style="width:180px; height:180px;"
+            loop autoplay>
+          </lottie-player>
+        </div>
+        <div class="onboard-title">Подключение за&nbsp;30&nbsp;секунд</div>
+        <div class="onboard-sub">
+          Мы сгенерируем VPN-ключ и&nbsp;отправим
+          ссылку для приложения Hiddify или Streisand.
+        </div>
+        <div class="onboard-feature-list">
+          <div class="onboard-feature">
+            <div class="onboard-feature-icon" style="background:rgba(42,171,238,0.14); color:var(--blue);">
+              <svg viewBox="0 0 24 24"><use href="#i-phone"></use></svg>
+            </div>
+            <div>
+              <div class="onboard-feature-title">iOS и Android</div>
+              <div class="onboard-feature-sub">Hiddify, Streisand, v2rayNG</div>
+            </div>
+          </div>
+          <div class="onboard-feature">
+            <div class="onboard-feature-icon" style="background:rgba(90,200,250,0.14); color:#5AC8FA;">
+              <svg viewBox="0 0 24 24"><use href="#i-desktop"></use></svg>
+            </div>
+            <div>
+              <div class="onboard-feature-title">Windows и Mac</div>
+              <div class="onboard-feature-sub">Hiddify, Nekoray, Sing-box</div>
+            </div>
+          </div>
+          <div class="onboard-feature">
+            <div class="onboard-feature-icon" style="background:rgba(191,90,242,0.14); color:#BF5AF2;">
+              <svg viewBox="0 0 24 24"><use href="#i-share"></use></svg>
+            </div>
+            <div>
+              <div class="onboard-feature-title">QR-код и ссылка</div>
+              <div class="onboard-feature-sub">Скан или один тап для импорта</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="onboard-footer">
+        <button class="btn-primary">
+          Далее
+          <svg viewBox="0 0 24 24" style="transform:rotate(180deg)"><use href="#i-chevron-left"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 6c — ONBOARDING (слайд 3 / 3 — CTA)
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">6c · Онбординг — Слайд 3</div>
+  <div class="phone">
+    <div class="onboard-wrap">
+      <div class="onboard-top-bar">
+        <span></span>
+      </div>
+      <div class="onboard-dots">
+        <div class="onboard-dot"></div>
+        <div class="onboard-dot"></div>
+        <div class="onboard-dot active"></div>
+      </div>
+      <div class="onboard-body">
+        <div class="onboard-lottie">
+          <lottie-player
+            src="./animations/Idea.json"
+            background="transparent"
+            speed="0.8"
+            style="width:180px; height:180px;"
+            loop autoplay>
+          </lottie-player>
+        </div>
+        <div class="onboard-title">Попробуй&nbsp;3&nbsp;дня бесплатно</div>
+        <div class="onboard-sub">
+          Новым пользователям — пробный период без
+          ограничений по трафику и скорости.
+        </div>
+        <!-- Mini pricing cards -->
+        <div style="display:flex; gap:10px; width:100%; margin-top:24px;">
+          <div style="flex:1; background:rgba(48,209,88,0.1); border:1px solid rgba(48,209,88,0.2); border-radius:16px; padding:16px; text-align:center;">
+            <div style="font-size:13px; color:var(--green); font-weight:600; margin-bottom:6px;">Пробный</div>
+            <div style="font-size:26px; font-weight:800; letter-spacing:-0.04em;">0 ₽</div>
+            <div style="font-size:12px; color:var(--secondary); margin-top:4px;">3 дня</div>
+          </div>
+          <div style="flex:1; background:rgba(42,171,238,0.1); border:1px solid rgba(42,171,238,0.2); border-radius:16px; padding:16px; text-align:center;">
+            <div style="font-size:13px; color:var(--blue); font-weight:600; margin-bottom:6px;">Месячный</div>
+            <div style="font-size:26px; font-weight:800; letter-spacing:-0.04em;">299 ₽</div>
+            <div style="font-size:12px; color:var(--secondary); margin-top:4px;">30 дней</div>
+          </div>
+        </div>
+      </div>
+      <div class="onboard-footer">
+        <button class="btn-primary">
+          <svg viewBox="0 0 24 24"><use href="#i-shield"></use></svg>
+          Начать бесплатно
+        </button>
+        <button class="btn-secondary">Уже есть подписка</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 9 — PENDING (создание доступа)
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">9 · Создание доступа</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side" style="opacity:0; pointer-events:none;">
+          <svg><use href="#i-chevron-left"></use></svg>
+          <span>Назад</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Мой доступ</div>
+          <div class="nav-sub">мини-приложение</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+
+      <div class="scroll-area" style="display:flex; flex-direction:column;">
+
+        <!-- Lottie + title -->
+        <div class="pending-hero">
+          <lottie-player
+            src="./animations/dizzy telegram.json"
+            background="transparent"
+            speed="1"
+            style="width:140px; height:140px;"
+            loop autoplay>
+          </lottie-player>
+          <div class="pending-title">Создаём ваш доступ</div>
+          <div class="pending-sub">
+            Настраиваем VPN-ключ на сервере.<br>
+            Обычно занимает до 30 секунд.
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-track">
+          <div class="progress-fill"></div>
+        </div>
+
+        <!-- Steps -->
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-icon done">
+              <svg viewBox="0 0 24 24"><use href="#i-check-circle"></use></svg>
+            </div>
+            <div class="step-text">
+              <div class="step-title done">Подписка активирована</div>
+              <div class="step-sub">Тариф: Месячный</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon done">
+              <svg viewBox="0 0 24 24"><use href="#i-check-circle"></use></svg>
+            </div>
+            <div class="step-text">
+              <div class="step-title done">Сервер выбран</div>
+              <div class="step-sub">DE · Франкфурт</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon spinning">
+              <svg viewBox="0 0 24 24"><use href="#i-refresh"></use></svg>
+            </div>
+            <div class="step-text">
+              <div class="step-title active">Генерация ключей</div>
+              <div class="step-sub">Создаём VLESS-конфигурацию...</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-icon waiting">
+              <svg viewBox="0 0 24 24"><use href="#i-key"></use></svg>
+            </div>
+            <div class="step-text">
+              <div class="step-title waiting">Настройка доступа</div>
+              <div class="step-sub">Ожидание...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div style="margin:16px 16px 0; padding:14px 16px; background:var(--card); border-radius:16px; border:1px solid rgba(42,171,238,0.15); display:flex; align-items:flex-start; gap:12px;">
+          <svg style="width:18px; height:18px; fill:var(--blue); flex-shrink:0; margin-top:2px;" viewBox="0 0 24 24"><use href="#i-bell"></use></svg>
+          <div style="font-size:13px; color:var(--secondary); line-height:1.5;">
+            Уведомим вас в&nbsp;Telegram как только доступ будет готов. Можно закрыть это окно.
+          </div>
+        </div>
+
+      </div><!-- /scroll -->
+
+      <div class="tab-bar">
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 10 — OFFLINE / НЕТ ПОДПИСКИ
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">10 · Нет подписки</div>
+  <div class="phone">
+    <div class="phone-content">
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg><use href="#i-signal"></use></svg>
+          <svg><use href="#i-wifi"></use></svg>
+          <svg><use href="#i-battery"></use></svg>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-side" style="opacity:0; pointer-events:none;">
+          <svg><use href="#i-chevron-left"></use></svg><span>Назад</span>
+        </div>
+        <div class="nav-center">
+          <div class="nav-title">Unblockly</div>
+          <div class="nav-sub">мини-приложение</div>
+        </div>
+        <div class="nav-side right">
+          <svg><use href="#i-dots"></use></svg>
+        </div>
+      </div>
+
+      <!-- Offline state -->
+      <div class="offline-page">
+
+        <lottie-player
+          src="./animations/No Entry.json"
+          background="transparent"
+          speed="0.8"
+          style="width:160px; height:160px; margin-bottom:4px;"
+          loop autoplay>
+        </lottie-player>
+
+        <div class="offline-label">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm5 11H7v-2h10v2Z"/></svg>
+          VPN отключён
+        </div>
+
+        <div class="offline-title">Нет активной&nbsp;подписки</div>
+        <div class="offline-sub">
+          Выберите тариф, чтобы получить доступ к&nbsp;серверам
+          и&nbsp;защищённому соединению.
+        </div>
+
+        <!-- Mini plan preview -->
+        <div style="display:flex; gap:10px; width:100%; margin-bottom:28px;">
+          <div style="flex:1; background:var(--card); border-radius:16px; padding:16px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:12px; color:var(--secondary); margin-bottom:6px; font-weight:500;">Пробный</div>
+            <div style="font-size:24px; font-weight:800; letter-spacing:-0.04em;">0 ₽</div>
+            <div style="font-size:11px; color:var(--green); margin-top:4px; font-weight:600;">3 дня бесплатно</div>
+          </div>
+          <div style="flex:1; background:var(--card); border-radius:16px; padding:16px; text-align:center; border:1px solid rgba(42,171,238,0.2);">
+            <div style="font-size:12px; color:var(--blue); margin-bottom:6px; font-weight:600;">Месячный</div>
+            <div style="font-size:24px; font-weight:800; letter-spacing:-0.04em;">299 ₽</div>
+            <div style="font-size:11px; color:var(--secondary); margin-top:4px;">30 дней доступа</div>
+          </div>
+        </div>
+
+        <button class="offline-cta">
+          <svg viewBox="0 0 24 24"><use href="#i-shield"></use></svg>
+          Активировать бесплатно
+        </button>
+        <div class="offline-cta-sec">
+          Уже есть подписка? <span>Войти</span>
+        </div>
+
+      </div><!-- /offline-page -->
+
+      <div class="tab-bar">
+        <div class="tab-item active">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div>
+          <div class="tab-label">Главная</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div>
+          <div class="tab-label">Доступ</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div>
+          <div class="tab-label">Тарифы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div>
+          <div class="tab-label">Рефералы</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div>
+          <div class="tab-label">Профиль</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 7 — ОПЛАТА
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">7 · Оплата</div>
+  <div class="phone"><div class="phone-content">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons"><svg><use href="#i-signal"></use></svg><svg><use href="#i-wifi"></use></svg><svg><use href="#i-battery"></use></svg></div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-side"><svg><use href="#i-chevron-left"></use></svg><span>Назад</span></div>
+      <div class="nav-center"><div class="nav-title">Оплата</div><div class="nav-sub">мини-приложение</div></div>
+      <div class="nav-side right" style="opacity:0;"></div>
+    </div>
+    <div class="scroll-area">
+
+      <!-- Order summary -->
+      <div class="section-label">Ваш заказ</div>
+      <div class="pay-order-card">
+        <div class="pay-plan-row">
+          <div class="pay-plan-icon"><svg viewBox="0 0 24 24"><use href="#i-shield"></use></svg></div>
+          <div>
+            <div class="pay-plan-name">Месячный тариф</div>
+            <div class="pay-plan-sub">30 дней · безлимитный трафик</div>
+          </div>
+        </div>
+        <div class="pay-line"><span class="lbl">Тариф</span><span class="val">Месячный</span></div>
+        <div class="pay-line"><span class="lbl">Срок</span><span class="val">30 дней</span></div>
+        <div class="pay-line"><span class="lbl">Сервер</span><span class="val">Все доступные</span></div>
+        <div class="pay-total"><span>Итого</span><span>299 ₽</span></div>
+      </div>
+
+      <!-- Payment method -->
+      <div class="section-label">Способ оплаты</div>
+      <div class="pay-method-card">
+        <div class="pay-method-row">
+          <div class="pay-method-icon" style="background:rgba(255,214,10,0.14); color:#FFD60A;">
+            <svg viewBox="0 0 24 24"><use href="#i-star"></use></svg>
+          </div>
+          <div class="pay-method-text">
+            <div class="pay-method-name">Telegram Stars</div>
+            <div class="pay-method-sub">150 Stars · мгновенно</div>
+          </div>
+          <div class="radio-outer selected"><div class="radio-inner"></div></div>
+        </div>
+        <div class="pay-method-row">
+          <div class="pay-method-icon" style="background:rgba(42,171,238,0.14); color:var(--blue);">
+            <svg viewBox="0 0 24 24"><use href="#i-wallet"></use></svg>
+          </div>
+          <div class="pay-method-text">
+            <div class="pay-method-name">Криптовалюта</div>
+            <div class="pay-method-sub">4 USDT или 1.2 TON</div>
+          </div>
+          <div class="radio-outer"></div>
+        </div>
+      </div>
+
+      <!-- Promo code -->
+      <div class="section-label">Промокод</div>
+      <div style="margin:0 16px 12px; display:flex; gap:10px;">
+        <div style="flex:1; background:var(--card); border-radius:14px; border:1px solid var(--sep); padding:14px 16px; font-size:15px; color:var(--secondary);">Введите промокод...</div>
+        <button style="background:var(--card2); border:none; border-radius:14px; padding:14px 18px; color:var(--secondary); font-size:14px; font-weight:600; cursor:pointer;">Применить</button>
+      </div>
+
+      <div class="pay-footer">
+        <div class="pay-note">Оплачивая, вы соглашаетесь с условиями использования. Доступ активируется автоматически после подтверждения.</div>
+        <button class="btn-primary">
+          <svg viewBox="0 0 24 24"><use href="#i-star"></use></svg>
+          Оплатить 150 Stars
+        </button>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 8 — УСПЕШНАЯ ОПЛАТА
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">8 · Успешная оплата</div>
+  <div class="phone"><div class="phone-content">
+    <div class="success-wrap">
+      <div class="success-glow"></div>
+      <div></div><!-- spacer -->
+
+      <div class="success-body">
+        <lottie-player
+          src="./animations/Star Animation.json"
+          background="transparent" speed="0.8"
+          style="width:120px; height:120px;"
+          loop autoplay>
+        </lottie-player>
+        <div class="success-check" style="margin-top:6px;">
+          <svg viewBox="0 0 24 24"><use href="#i-check-circle"></use></svg>
+        </div>
+        <div class="success-title">Оплата прошла!</div>
+        <div class="success-sub">Подписка активирована.<br>Создаём ваш VPN-доступ.</div>
+
+        <div class="success-detail-card">
+          <div class="success-row"><span class="lbl">Тариф</span><span class="val">Месячный</span></div>
+          <div class="success-row"><span class="lbl">Оплата</span><span class="val">150 Stars</span></div>
+          <div class="success-row"><span class="lbl">Активен до</span><span class="val" style="color:var(--green)">13 июня 2026</span></div>
+          <div class="success-row"><span class="lbl">Сервер</span><span class="val">DE · Франкфурт</span></div>
+        </div>
+      </div>
+
+      <div class="success-footer">
+        <button class="btn-primary">
+          <svg viewBox="0 0 24 24"><use href="#i-key"></use></svg>
+          Перейти к доступу
+        </button>
+        <button class="btn-secondary">На главную</button>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 11 — КАК ПОДКЛЮЧИТЬСЯ
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">11 · Инструкции</div>
+  <div class="phone"><div class="phone-content">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons"><svg><use href="#i-signal"></use></svg><svg><use href="#i-wifi"></use></svg><svg><use href="#i-battery"></use></svg></div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-side"><svg><use href="#i-chevron-left"></use></svg><span>Назад</span></div>
+      <div class="nav-center"><div class="nav-title">Инструкции</div><div class="nav-sub">мини-приложение</div></div>
+      <div class="nav-side right"><svg><use href="#i-dots"></use></svg></div>
+    </div>
+    <div class="scroll-area">
+
+      <!-- Platform tabs -->
+      <div class="inst-tabs">
+        <div class="inst-tab active">iOS</div>
+        <div class="inst-tab">Android</div>
+        <div class="inst-tab">Windows</div>
+        <div class="inst-tab">Mac</div>
+      </div>
+
+      <!-- Lottie illustration -->
+      <div style="display:flex; justify-content:center; margin-bottom:4px;">
+        <lottie-player src="./animations/iPhone.json"
+          background="transparent" speed="1"
+          style="width:100px; height:100px;"
+          loop autoplay>
+        </lottie-player>
+      </div>
+
+      <!-- Steps -->
+      <div class="section-label">iOS · Hiddify</div>
+      <div class="inst-step-list">
+        <div class="inst-step">
+          <div class="inst-num">1</div>
+          <div>
+            <div class="inst-step-title">Скачайте Hiddify</div>
+            <div class="inst-step-sub">Бесплатное приложение из App Store. Поддерживает VLESS, VMess, Shadowsocks.</div>
+            <button class="inst-app-btn">
+              <svg viewBox="0 0 24 24"><use href="#i-external"></use></svg>
+              App Store
+            </button>
+          </div>
+        </div>
+        <div class="inst-step">
+          <div class="inst-num">2</div>
+          <div>
+            <div class="inst-step-title">Нажмите «Подключить»</div>
+            <div class="inst-step-sub">В разделе «Мой доступ» нажмите кнопку — Hiddify откроется автоматически.</div>
+          </div>
+        </div>
+        <div class="inst-step">
+          <div class="inst-num">3</div>
+          <div>
+            <div class="inst-step-title">Разрешите VPN-профиль</div>
+            <div class="inst-step-sub">iOS запросит разрешение на добавление конфигурации. Нажмите «Разрешить».</div>
+          </div>
+        </div>
+        <div class="inst-step">
+          <div class="inst-num">4</div>
+          <div>
+            <div class="inst-step-title">Включите соединение</div>
+            <div class="inst-step-sub">Нажмите большую кнопку в Hiddify. В статус-баре появится значок VPN.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alternative apps -->
+      <div class="section-label">Альтернативные клиенты</div>
+      <div class="card">
+        <div class="list-row">
+          <div class="list-icon" style="background:rgba(90,200,250,0.14); color:#5AC8FA; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><use href="#i-phone"></use></svg>
+          </div>
+          <div class="list-text"><div class="list-title">Streisand</div><div class="list-sub">iOS, macOS</div></div>
+          <svg class="chevron" style="width:18px;height:18px;fill:var(--secondary);transform:rotate(180deg)"><use href="#i-chevron-left"></use></svg>
+        </div>
+        <div class="list-row">
+          <div class="list-icon" style="background:rgba(191,90,242,0.14); color:#BF5AF2; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><use href="#i-desktop"></use></svg>
+          </div>
+          <div class="list-text"><div class="list-title">Sing-box</div><div class="list-sub">iOS, Android, Windows, Mac, Linux</div></div>
+          <svg class="chevron" style="width:18px;height:18px;fill:var(--secondary);transform:rotate(180deg)"><use href="#i-chevron-left"></use></svg>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div><div class="tab-label">Главная</div></div>
+      <div class="tab-item active"><div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div><div class="tab-label">Доступ</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div><div class="tab-label">Тарифы</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div><div class="tab-label">Рефералы</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div><div class="tab-label">Профиль</div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 12 — ИСТОРИЯ ПЛАТЕЖЕЙ
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">12 · История платежей</div>
+  <div class="phone"><div class="phone-content">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons"><svg><use href="#i-signal"></use></svg><svg><use href="#i-wifi"></use></svg><svg><use href="#i-battery"></use></svg></div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-side"><svg><use href="#i-chevron-left"></use></svg><span>Назад</span></div>
+      <div class="nav-center"><div class="nav-title">История платежей</div><div class="nav-sub">мини-приложение</div></div>
+      <div class="nav-side right" style="opacity:0;"></div>
+    </div>
+    <div class="scroll-area">
+
+      <div class="section-label">Апрель 2026</div>
+      <div class="card">
+        <div class="tx-item">
+          <div class="tx-icon" style="background:rgba(48,209,88,0.14); color:var(--green);">
+            <svg viewBox="0 0 24 24"><use href="#i-shield"></use></svg>
+          </div>
+          <div class="tx-text">
+            <div class="tx-title">Месячная подписка</div>
+            <div class="tx-date">15 апр 2026 · 14:22 · Telegram Stars</div>
+          </div>
+          <div class="tx-right">
+            <div class="tx-amount">−150 ⭐</div>
+            <div class="tx-status">Выполнено</div>
+          </div>
+        </div>
+        <div class="tx-item">
+          <div class="tx-icon" style="background:rgba(42,171,238,0.14); color:var(--blue);">
+            <svg viewBox="0 0 24 24"><use href="#i-gift"></use></svg>
+          </div>
+          <div class="tx-text">
+            <div class="tx-title">Реферальный бонус</div>
+            <div class="tx-date">12 апр 2026 · Автоначисление</div>
+          </div>
+          <div class="tx-right">
+            <div class="tx-amount green">+3 дня</div>
+            <div class="tx-status">Начислено</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Март 2026</div>
+      <div class="card">
+        <div class="tx-item">
+          <div class="tx-icon" style="background:rgba(42,171,238,0.14); color:var(--blue);">
+            <svg viewBox="0 0 24 24"><use href="#i-wallet"></use></svg>
+          </div>
+          <div class="tx-text">
+            <div class="tx-title">Месячная подписка</div>
+            <div class="tx-date">14 мар 2026 · 09:11 · USDT</div>
+          </div>
+          <div class="tx-right">
+            <div class="tx-amount">−4 USDT</div>
+            <div class="tx-status">Выполнено</div>
+          </div>
+        </div>
+        <div class="tx-item">
+          <div class="tx-icon" style="background:rgba(48,209,88,0.14); color:var(--green);">
+            <svg viewBox="0 0 24 24"><use href="#i-gift"></use></svg>
+          </div>
+          <div class="tx-text">
+            <div class="tx-title">Пробный период</div>
+            <div class="tx-date">1 мар 2026 · Активация</div>
+          </div>
+          <div class="tx-right">
+            <div class="tx-amount green">Бесплатно</div>
+            <div class="tx-status">Выполнено</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Февраль 2026</div>
+      <div class="card">
+        <div class="tx-item">
+          <div class="tx-icon" style="background:rgba(255,69,58,0.12); color:var(--red);">
+            <svg viewBox="0 0 24 24"><use href="#i-receipt"></use></svg>
+          </div>
+          <div class="tx-text">
+            <div class="tx-title">Месячная подписка</div>
+            <div class="tx-date">12 фев 2026 · 22:04 · Telegram Stars</div>
+          </div>
+          <div class="tx-right">
+            <div class="tx-amount">−150 ⭐</div>
+            <div class="tx-status" style="color:var(--red);">Возврат</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:20px 16px 8px; font-size:12px; color:var(--secondary); text-align:center; line-height:1.5;">
+        Все платежи защищены Telegram.<br>По вопросам возврата — обращайтесь в поддержку.
+      </div>
+
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div><div class="tab-label">Главная</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div><div class="tab-label">Доступ</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div><div class="tab-label">Тарифы</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div><div class="tab-label">Рефералы</div></div>
+      <div class="tab-item active"><div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div><div class="tab-label">Профиль</div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 13 — ВЫБОР СЕРВЕРА
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">13 · Серверы</div>
+  <div class="phone"><div class="phone-content">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons"><svg><use href="#i-signal"></use></svg><svg><use href="#i-wifi"></use></svg><svg><use href="#i-battery"></use></svg></div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-side"><svg><use href="#i-chevron-left"></use></svg><span>Назад</span></div>
+      <div class="nav-center"><div class="nav-title">Серверы</div><div class="nav-sub">мини-приложение</div></div>
+      <div class="nav-side right" style="opacity:0;"></div>
+    </div>
+    <div class="scroll-area">
+
+      <!-- Active connection -->
+      <div class="hero-card hero-card--main" style="margin-top:8px;">
+        <div class="hero-glow"></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+          <div style="font-size:13px; color:var(--secondary);">Текущее подключение</div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:var(--green); font-weight:600;">
+            <div class="status-dot"></div> Активно
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="server-flag">🇩🇪</div>
+          <div>
+            <div style="font-size:18px; font-weight:700;">Германия</div>
+            <div style="font-size:13px; color:var(--secondary); margin-top:3px;">Франкфурт · de-1.unblockly.io</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:16px;">
+          <div style="flex:1; background:var(--card2); border-radius:12px; padding:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:var(--green);">24ms</div>
+            <div style="font-size:11px; color:var(--secondary); margin-top:3px;">Пинг</div>
+          </div>
+          <div style="flex:1; background:var(--card2); border-radius:12px; padding:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800; color:var(--blue);">99.9%</div>
+            <div style="font-size:11px; color:var(--secondary); margin-top:3px;">Аптайм</div>
+          </div>
+          <div style="flex:1; background:var(--card2); border-radius:12px; padding:12px; text-align:center;">
+            <div style="font-size:20px; font-weight:800;">1 Gbps</div>
+            <div style="font-size:11px; color:var(--secondary); margin-top:3px;">Скорость</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server list -->
+      <div class="section-label">Доступные серверы</div>
+      <div class="card">
+        <!-- Active server -->
+        <div class="server-item">
+          <div class="server-flag">🇩🇪</div>
+          <div class="server-text">
+            <div class="server-name">Германия — Франкфурт</div>
+            <div class="server-meta">
+              <div class="ping-dot green"></div>
+              <span>Онлайн</span>
+              <span style="color:var(--sep);">·</span>
+              <span class="server-ping green">24 ms</span>
+            </div>
+          </div>
+          <div class="server-right">
+            <div class="radio-outer selected"><div class="radio-inner"></div></div>
+          </div>
+        </div>
+        <!-- Other servers -->
+        <div class="server-item">
+          <div class="server-flag">🇳🇱</div>
+          <div class="server-text">
+            <div class="server-name">Нидерланды — Амстердам</div>
+            <div class="server-meta">
+              <div class="ping-dot green"></div>
+              <span>Онлайн</span>
+              <span style="color:var(--sep);">·</span>
+              <span class="server-ping green">31 ms</span>
+            </div>
+          </div>
+          <div class="server-right">
+            <div class="radio-outer"></div>
+          </div>
+        </div>
+        <div class="server-item">
+          <div class="server-flag">🇫🇮</div>
+          <div class="server-text">
+            <div class="server-name">Финляндия — Хельсинки</div>
+            <div class="server-meta">
+              <div class="ping-dot green"></div>
+              <span>Онлайн</span>
+              <span style="color:var(--sep);">·</span>
+              <span class="server-ping green">38 ms</span>
+            </div>
+          </div>
+          <div class="server-right">
+            <div class="radio-outer"></div>
+          </div>
+        </div>
+        <div class="server-item">
+          <div class="server-flag">🇵🇱</div>
+          <div class="server-text">
+            <div class="server-name">Польша — Варшава</div>
+            <div class="server-meta">
+              <div class="ping-dot yellow"></div>
+              <span>Онлайн</span>
+              <span style="color:var(--sep);">·</span>
+              <span class="server-ping yellow">67 ms</span>
+            </div>
+          </div>
+          <div class="server-right">
+            <div class="radio-outer"></div>
+          </div>
+        </div>
+        <div class="server-item">
+          <div class="server-flag">🇺🇸</div>
+          <div class="server-text">
+            <div class="server-name">США — Нью-Йорк</div>
+            <div class="server-meta">
+              <div class="ping-dot yellow"></div>
+              <span>Онлайн</span>
+              <span style="color:var(--sep);">·</span>
+              <span class="server-ping yellow">118 ms</span>
+            </div>
+          </div>
+          <div class="server-right">
+            <div class="radio-outer"></div>
+          </div>
+        </div>
+        <div class="server-item">
+          <div class="server-flag">🇯🇵</div>
+          <div class="server-text">
+            <div class="server-name">Япония — Токио</div>
+            <div class="server-meta">
+              <div class="ping-dot red"></div>
+              <span style="color:var(--red);">Тех. работы</span>
+            </div>
+          </div>
+          <div class="server-right">
+            <div class="radio-outer" style="opacity:0.4;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item active"><div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div><div class="tab-label">Главная</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div><div class="tab-label">Доступ</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div><div class="tab-label">Тарифы</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div><div class="tab-label">Рефералы</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div><div class="tab-label">Профиль</div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 14 — ПОДДЕРЖКА
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">14 · Поддержка</div>
+  <div class="phone"><div class="phone-content">
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons"><svg><use href="#i-signal"></use></svg><svg><use href="#i-wifi"></use></svg><svg><use href="#i-battery"></use></svg></div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-side"><svg><use href="#i-chevron-left"></use></svg><span>Назад</span></div>
+      <div class="nav-center"><div class="nav-title">Поддержка</div><div class="nav-sub">мини-приложение</div></div>
+      <div class="nav-side right" style="opacity:0;"></div>
+    </div>
+    <div class="scroll-area">
+
+      <!-- Hero -->
+      <div class="support-hero">
+        <svg style="width:48px; height:48px; fill:var(--blue);" viewBox="0 0 24 24"><use href="#i-lifebuoy"></use></svg>
+        <div class="support-hero-title">Чем можем помочь?</div>
+        <div class="support-hero-sub">Среднее время ответа — 15 минут.<br>Работаем ежедневно с 9:00 до 23:00.</div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="section-label">Написать нам</div>
+      <div class="card">
+        <div class="list-row" style="cursor:pointer;">
+          <div class="list-icon" style="background:rgba(42,171,238,0.14); color:var(--blue); width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><use href="#i-share"></use></svg>
+          </div>
+          <div class="list-text"><div class="list-title">Telegram-чат поддержки</div><div class="list-sub">Ответим в течение 15 минут</div></div>
+          <svg style="width:18px;height:18px;fill:var(--secondary);transform:rotate(180deg);" viewBox="0 0 24 24"><use href="#i-chevron-left"></use></svg>
+        </div>
+        <div class="list-row" style="cursor:pointer;">
+          <div class="list-icon" style="background:rgba(48,209,88,0.14); color:var(--green); width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
+          </div>
+          <div class="list-text"><div class="list-title">База знаний</div><div class="list-sub">Статьи и руководства</div></div>
+          <svg style="width:18px;height:18px;fill:var(--secondary);transform:rotate(180deg);" viewBox="0 0 24 24"><use href="#i-chevron-left"></use></svg>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="section-label">Статус сервисов</div>
+      <div class="card">
+        <div class="list-row">
+          <div style="flex:1; font-size:15px; font-weight:500;">VPN-серверы</div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:var(--green); font-weight:600;"><div class="status-dot" style="width:7px;height:7px;"></div>Работают</div>
+        </div>
+        <div class="list-row">
+          <div style="flex:1; font-size:15px; font-weight:500;">API и платежи</div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:var(--green); font-weight:600;"><div class="status-dot" style="width:7px;height:7px;"></div>Работают</div>
+        </div>
+        <div class="list-row">
+          <div style="flex:1; font-size:15px; font-weight:500;">Telegram Stars</div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:var(--green); font-weight:600;"><div class="status-dot" style="width:7px;height:7px;"></div>Работают</div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section-label">Частые вопросы</div>
+      <div class="card">
+        <div class="faq-item">
+          <div class="faq-q">
+            Почему не работает VPN?
+            <svg viewBox="0 0 24 24"><use href="#i-chevron-left"></use></svg>
+          </div>
+          <div class="faq-a">Проверьте статус подписки и попробуйте переиздать доступ в разделе «Мой доступ».</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            Как сменить сервер?
+            <svg viewBox="0 0 24 24"><use href="#i-chevron-left"></use></svg>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            Можно ли вернуть деньги?
+            <svg viewBox="0 0 24 24"><use href="#i-chevron-left"></use></svg>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            Сколько устройств поддерживается?
+            <svg viewBox="0 0 24 24"><use href="#i-chevron-left"></use></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-home"></use></svg></div><div class="tab-label">Главная</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-key"></use></svg></div><div class="tab-label">Доступ</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-star"></use></svg></div><div class="tab-label">Тарифы</div></div>
+      <div class="tab-item"><div class="tab-pill"><svg class="tab-icon"><use href="#i-users"></use></svg></div><div class="tab-label">Рефералы</div></div>
+      <div class="tab-item active"><div class="tab-pill"><svg class="tab-icon"><use href="#i-user"></use></svg></div><div class="tab-label">Профиль</div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 15 — BOTTOMSHEET УВЕДОМЛЕНИЕ
+══════════════════════════════════════════════════════ -->
+<div class="screen-wrap">
+  <div class="screen-label">15 · Уведомление (Bottom Sheet)</div>
+  <div class="phone">
+    <div class="sheet-screen">
+      <!-- Background screen (dashboard, dimmed) -->
+      <div style="height:100%; background:var(--bg); position:relative; overflow:hidden;">
+        <div style="padding:64px 20px 0; opacity:0.45; pointer-events:none;">
+          <!-- blurred dashboard preview -->
+          <div style="background:var(--card); border-radius:22px; padding:20px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+              <div style="width:9px;height:9px;border-radius:50%;background:var(--green);"></div>
+              <span style="font-size:14px; color:var(--green); font-weight:600;">Подключено</span>
+            </div>
+            <div style="font-size:60px; font-weight:800; letter-spacing:-3px; line-height:1; color:var(--white);">3</div>
+            <div style="font-size:16px; color:var(--secondary); margin-top:4px;">дня осталось</div>
+            <div style="font-size:13px; color:var(--secondary); margin-top:8px;">Тариф: Месячный · до 18 апр 2026</div>
+          </div>
+          <div style="background:var(--card); border-radius:16px; padding:14px 16px; display:flex; gap:14px; align-items:center;">
+            <div style="width:40px;height:40px;background:rgba(42,171,238,0.18);border-radius:10px;"></div>
+            <div style="flex:1;">
+              <div style="font-size:15px; font-weight:500; margin-bottom:4px; background:var(--card2); height:14px; border-radius:4px; width:60%;"></div>
+              <div style="height:12px; border-radius:4px; background:var(--card2); width:40%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sheet overlay -->
+        <div class="sheet-overlay">
+          <div class="sheet-panel">
+            <div class="sheet-handle"></div>
+
+            <div class="sheet-expiry-badge">
+              <svg viewBox="0 0 24 24"><use href="#i-bell"></use></svg>
+              Подписка истекает скоро
+            </div>
+
+            <div class="sheet-title">Осталось 3 дня</div>
+            <div class="sheet-sub">
+              Ваша подписка истекает <strong style="color:var(--white)">18 апреля 2026</strong>.
+              Продлите сейчас, чтобы не потерять доступ к VPN.
+            </div>
+
+            <!-- Plan options -->
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+              <div style="flex:1; background:var(--card2); border-radius:14px; padding:14px; text-align:center; border:2px solid var(--blue);">
+                <div style="font-size:12px; color:var(--blue); font-weight:600; margin-bottom:4px;">Месячный</div>
+                <div style="font-size:22px; font-weight:800; letter-spacing:-0.04em;">299 ₽</div>
+                <div style="font-size:11px; color:var(--secondary); margin-top:3px;">30 дней</div>
+              </div>
+              <div style="flex:1; background:var(--card2); border-radius:14px; padding:14px; text-align:center;">
+                <div style="font-size:12px; color:var(--secondary); font-weight:500; margin-bottom:4px;">Квартал</div>
+                <div style="font-size:22px; font-weight:800; letter-spacing:-0.04em;">799 ₽</div>
+                <div style="font-size:11px; color:var(--green); margin-top:3px;">−11%</div>
+              </div>
+            </div>
+
+            <button class="sheet-btn-primary">Продлить подписку</button>
+            <button class="sheet-btn-secondary">Напомнить завтра</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+<script>document.querySelectorAll("button,.qa-button,.url-copy,.plan-btn,.btn-pill,.btn-outline,.mini-action,.tab-item,.server-item,.faq-item").forEach(e=>e.onclick=()=>alert("Действие"););</script>
